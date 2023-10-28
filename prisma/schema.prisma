@@ -8,7 +8,38 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
+  id              Int           @id @default(autoincrement())
+  email           String        @unique
+  password        String
+  PersonalTables  UserTimeTable @relation(fields: [userTimeTableId], references: [id])
+  userTimeTableId Int
+}
+
+model UserTimeTable {
+  id   Int             @id @default(autoincrement())
+  LTT  LongTimeTable[]
+  WTT  WeekTimeTable[]
+  DTT  DayTimeTable[]
+  User User[]
+}
+
+model LongTimeTable {
+  id              Int            @id @default(autoincrement())
+  tasks           String[]
+  UserTimeTable   UserTimeTable? @relation(fields: [userTimeTableId], references: [id])
+  userTimeTableId Int?
+}
+
+model WeekTimeTable {
+  id              Int            @id @default(autoincrement())
+  tasks           String[]
+  UserTimeTable   UserTimeTable? @relation(fields: [userTimeTableId], references: [id])
+  userTimeTableId Int?
+}
+
+model DayTimeTable {
+  id              Int            @id @default(autoincrement())
+  tasks           String[]
+  UserTimeTable   UserTimeTable? @relation(fields: [userTimeTableId], references: [id])
+  userTimeTableId Int?
 }
