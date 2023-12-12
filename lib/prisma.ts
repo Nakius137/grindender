@@ -9,8 +9,8 @@ async function main() {
   //     password: "123",
   //   },
   // });
-  const users = await prisma.user.findMany();
-  console.log(users);
+  // const users = await prisma.user.findMany();
+  // console.log(users);
 }
 
 main()
