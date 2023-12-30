@@ -3,6 +3,7 @@ import type { NextAuthOptions, User } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "../../../../../lib/prisma";
+import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,7 +18,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email", placeholder: "jsmith@o2.com" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (!credentials || !credentials.email || !credentials.password) {
           return null;
         }
@@ -26,8 +27,12 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email },
         });
 
-        // bcrypt TODO
-        if (user && user.password === credentials.password) {
+        const isValidPassword = await bcrypt.compare(
+          credentials.password,
+          user!.password
+        );
+
+        if (user && isValidPassword) {
           return user as unknown as User;
         }
 

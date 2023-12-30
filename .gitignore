@@ -5,11 +5,15 @@
 /.pnp
 .pnp.js
 
+# prisma migration files
+/prisma/migrations
+
 # testing
 /coverage
 
 # next.js
 /.next/
+.vscode
 /out/
 
 # production

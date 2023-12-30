@@ -11,35 +11,35 @@ model User {
   id              Int           @id @default(autoincrement())
   email           String        @unique
   password        String
-  PersonalTables  UserTimeTable @relation(fields: [userTimeTableId], references: [id])
-  userTimeTableId Int
+  userTimeTableId Int           
+  PersonalTables  UserTimeTable @relation(fields: [userTimeTableId], references: [id]) 
 }
 
 model UserTimeTable {
   id   Int             @id @default(autoincrement())
-  LTT  LongTimeTable[]
-  WTT  WeekTimeTable[]
   DTT  DayTimeTable[]
+  LTT  LongTimeTable[]
   User User[]
+  WTT  WeekTimeTable[]
 }
 
 model LongTimeTable {
   id              Int            @id @default(autoincrement())
   tasks           String[]
-  UserTimeTable   UserTimeTable? @relation(fields: [userTimeTableId], references: [id])
   userTimeTableId Int?
+  UserTimeTable   UserTimeTable? @relation(fields: [userTimeTableId], references: [id])
 }
 
 model WeekTimeTable {
   id              Int            @id @default(autoincrement())
   tasks           String[]
-  UserTimeTable   UserTimeTable? @relation(fields: [userTimeTableId], references: [id])
   userTimeTableId Int?
+  UserTimeTable   UserTimeTable? @relation(fields: [userTimeTableId], references: [id])
 }
 
 model DayTimeTable {
   id              Int            @id @default(autoincrement())
   tasks           String[]
-  UserTimeTable   UserTimeTable? @relation(fields: [userTimeTableId], references: [id])
   userTimeTableId Int?
+  UserTimeTable   UserTimeTable? @relation(fields: [userTimeTableId], references: [id])
 }

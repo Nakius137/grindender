@@ -1,10 +1,11 @@
 import { UsersCredantials } from "@/app/types";
-import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../../lib/prisma";
 import bcrypt from "bcrypt";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { email, password } = req.body as UsersCredantials;
+export async function POST(req: NextRequest) {
+  const { email, password } = (await req.json()) as UsersCredantials;
+
   const isSingedUp = await prisma.user.findFirst({
     where: {
       email: email,
@@ -19,12 +20,24 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       data: {
         email: email,
         password: hashedPassword,
-        PersonalTables: {},
+        PersonalTables: {
+          create: {
+            DTT: undefined,
+            LTT: undefined,
+            WTT: undefined,
+          },
+        },
       },
     });
-  } else {
-    return new Response("User with this email already exists");
-  }
 
-  return new Response(email);
+    return NextResponse.json({
+      message: "User has been successfully created",
+      status: 200,
+    });
+  } else {
+    return NextResponse.json({
+      error: "User with this email already exists",
+      status: 409,
+    });
+  }
 }
