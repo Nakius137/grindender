@@ -12,3 +12,7 @@ export interface ButtonProps {
 export interface AuthProviderProps {
   children: React.ReactNode;
 }
+
+export interface HabitCardProps {
+  category: "Day" | "Week" | "Month";
+}
