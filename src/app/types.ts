@@ -4,7 +4,7 @@ export interface UsersCredantials {
 }
 
 export interface ButtonProps {
-  style: string;
+  style?: string | undefined;
   text: string;
   onClick: () => {};
 }
@@ -13,6 +13,6 @@ export interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-export interface HabitCardProps {
+export interface GoalCardProps {
   category: "Day" | "Week" | "Month";
 }

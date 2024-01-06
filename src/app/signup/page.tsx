@@ -57,7 +57,7 @@ export default function SignUp() {
         <input
           type="submit"
           value="Sign in"
-          className="border-solid border-2 rounded-md  pt-1 pb-1 pl-2 pr-2 m-2.5 hover:bg-white hover:text-slate-900 transition hover:duration-500"
+          className="border-solid border-2 rounded-md  pt-1 pb-1 pl-2 pr-2 m-2.5 hover:bg-white hover:text-slate-900 transition hover:duration-500 hover:cursor-pointer"
         />
       </form>
     </>
